@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RegisterComponent } from "../register/register.component";
 
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -8,8 +9,11 @@ import { RegisterComponent } from "../register/register.component";
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent  {
   registerMode = false;
+
+
+
 
   registerToggle() {
     this.registerMode = !this.registerMode
@@ -18,4 +22,7 @@ export class HomeComponent {
   cancelRegisterMode(event: boolean) {
     this.registerMode = event;
   }
+
+
+
 }

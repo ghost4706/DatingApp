@@ -13,9 +13,9 @@ namespace API.Controllers;
 // [Route("api/[controller]")] //  /api/user
 
 [Authorize]
-public class UserController(IUserRepository userRepository,IMapper mapper) : BaseApiController
+public class UserController(IUserRepository userRepository) : BaseApiController
 {
-    [AllowAnonymous]
+    
     [HttpGet]
     public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
     {
