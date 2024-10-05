@@ -20,10 +20,12 @@
       </li>
     </ul>
 
-
-
+   
     @if(accountService.currentUser()){
     <div dropdown class="dropdown">
+      <img class="me-2"
+      src="{{accountService.currentUser()?.photoUrl || 'user.png' }}"
+       alt="user main img">
       <a dropdownToggle class="dropdown-toggle text-light text-decoration-none">
         Welcom {{accountService.currentUser()?.username | titlecase}}
       </a>
