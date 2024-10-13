@@ -1,8 +1,9 @@
-export interface User{
+export interface User {
   username: string;
-  KnownAs: string;
-  gender : string;
+  knownAs: string;
+  gender: string;
   token: string;
-  photoUrl? : string;
+  photoUrl?: string;
+  roles: string[];
 
 }

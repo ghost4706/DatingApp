@@ -19,9 +19,9 @@ namespace API.Controllers;
 public class UserController(IUserRepository userRepository, IMapper mapper,
 IPhotoService photoService) : BaseApiController
 {
-
+    
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
+    public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
     {
         userParams.CurrentUsername = User.GetUsername();
         var users = await userRepository.GetMembersAsync(userParams);
@@ -29,7 +29,7 @@ IPhotoService photoService) : BaseApiController
         return Ok(users);
     }
 
-
+    
     [HttpGet("{username}")]
     public async Task<ActionResult<MemberDto>> GetUser(string username)
     {
@@ -69,7 +69,7 @@ IPhotoService photoService) : BaseApiController
             PublicId = result.PublicId
         };
 
-        if(user.Photos.Count == 0) photo.IsMain = true;
+        if (user.Photos.Count == 0) photo.IsMain = true;
 
         user.Photos.Add(photo);
         if (await userRepository.SaveAllAsync())
@@ -104,16 +104,16 @@ IPhotoService photoService) : BaseApiController
         var user = await userRepository.GetUserByUsernameAsync(User.GetUsername());
         if (user == null) return BadRequest("User not found");
         var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
-        if(photo == null || photo.IsMain) return BadRequest("This photo cannot be deleted");
+        if (photo == null || photo.IsMain) return BadRequest("This photo cannot be deleted");
 
-        if(photo.PublicId != null)
+        if (photo.PublicId != null)
         {
             var result = await photoService.DeletePhotoAsync(photo.PublicId);
-            if(result.Error != null) return BadRequest(result.Error.Message);
+            if (result.Error != null) return BadRequest(result.Error.Message);
         }
 
         user.Photos.Remove(photo);
-        if(await userRepository.SaveAllAsync()) return Ok();
+        if (await userRepository.SaveAllAsync()) return Ok();
 
         return BadRequest("Problem deleting photo");
 
